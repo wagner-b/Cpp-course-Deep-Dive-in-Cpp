@@ -229,10 +229,10 @@ void withdrawFromAccount(std::map<unsigned long, Account> &memData)
 		std::cout << "\nWithdrawn " << amount << " from account ";
 		std::cout << accNo << ":\n" << memData[accNo] << "\n";
 	}
-	else if(memData.at(accNo).getBalance() - amount < 0)
-		std::cout << "\nError! Insufficient funds in account!\n";
-	else
+	else if(amount < 0)
 		std::cout << "\nError! Amount should not be negative!\n";
+	else
+		std::cout << "\nError! Insufficient funds in account!\n";
 }
 
 
