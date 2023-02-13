@@ -222,13 +222,15 @@ void withdrawFromAccount(std::map<unsigned long, Account> &memData)
 	std::cin >> amount;
 	std::cin.ignore(); // clear '\n' in buffer
 
-	if(amount >= 0)
+	if(amount >= 0 && memData.at(accNo).getBalance() - amount >= 0)
 	{
 		memData.at(accNo).withdraw(amount);
 		writeDataToDisk(memData);
 		std::cout << "\nWithdrawn " << amount << " from account ";
 		std::cout << accNo << ":\n" << memData[accNo] << "\n";
 	}
+	else if(memData.at(accNo).getBalance() - amount < 0)
+		std::cout << "\nError! Insufficient funds in account!\n";
 	else
 		std::cout << "\nError! Amount should not be negative!\n";
 }
