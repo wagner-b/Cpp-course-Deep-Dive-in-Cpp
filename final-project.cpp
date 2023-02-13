@@ -199,11 +199,15 @@ void depositToAccount(std::map<unsigned long, Account> &memData)
 	std::cin >> amount;
 	std::cin.ignore(); // clear '\n' in buffer
 
-	memData.at(accNo).deposit(amount);
-	writeDataToDisk(memData);
-
-	std::cout << "\nDeposited " << amount << " to account ";
-	std::cout << accNo << ":\n" << memData[accNo] << "\n";
+	if(amount >= 0)
+	{
+		memData.at(accNo).deposit(amount);
+		writeDataToDisk(memData);
+		std::cout << "\nDeposited " << amount << " to account ";
+		std::cout << accNo << ":\n" << memData[accNo] << "\n";
+	}
+	else
+		std::cout << "\nError! Amount should not be negative!\n";
 }
 
 
@@ -218,11 +222,15 @@ void withdrawFromAccount(std::map<unsigned long, Account> &memData)
 	std::cin >> amount;
 	std::cin.ignore(); // clear '\n' in buffer
 
-	memData.at(accNo).withdraw(amount);
-	writeDataToDisk(memData);
-
-	std::cout << "\nWithdrawn " << amount << " from account ";
-	std::cout << accNo << ":\n" << memData[accNo] << "\n";
+	if(amount >= 0)
+	{
+		memData.at(accNo).withdraw(amount);
+		writeDataToDisk(memData);
+		std::cout << "\nWithdrawn " << amount << " from account ";
+		std::cout << accNo << ":\n" << memData[accNo] << "\n";
+	}
+	else
+		std::cout << "\nError! Amount should not be negative!\n";
 }
 
 
@@ -263,15 +271,12 @@ int main()
 	short userChoice;
 	std::map<unsigned long, Account> memoryData;
 	loadDiskData(memoryData);
-
 	std::cout << "\nWelcome to banking simulator!\n";
-
 	do
 	{
 		printMenu();
 		std::cin >> userChoice;
 		std::cin.ignore(); // clear '\n' in buffer
-
 		switch(userChoice)
 		{
 			case 1:
@@ -306,6 +311,5 @@ int main()
 		}
 	}
 	while(userChoice != 7);
-
 	return 0;
 }
