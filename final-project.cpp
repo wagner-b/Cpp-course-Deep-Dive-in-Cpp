@@ -162,7 +162,11 @@ void displayAccount(std::map<unsigned long, Account> data)
 	std::cout << "Type the account number: ";
 	std::cin >> accNo;
 	std::cin.ignore(); // clear '\n' in buffer
-	std::cout << "\n" << data.at(accNo) << "\n";
+	
+	try
+		{std::cout << "\n" << data.at(accNo) << "\n";}
+	catch(std::out_of_range &exception)
+		{std::cout << "Error! This account number does not exist!\n";}
 }
 
 
@@ -195,6 +199,16 @@ void depositToAccount(std::map<unsigned long, Account> &memData)
 
 	std::cout << "Type the account number: ";
 	std::cin >> accNo;
+	
+	// verify if the account number exists
+	try
+		{memData.at(accNo);}
+	catch(std::out_of_range &exception)
+	{
+		std::cout << "Error! This account number does not exist!\n";
+		return;
+	}
+	
 	std::cout << "Type the amount to deposit: ";
 	std::cin >> amount;
 	std::cin.ignore(); // clear '\n' in buffer
@@ -218,6 +232,17 @@ void withdrawFromAccount(std::map<unsigned long, Account> &memData)
 
 	std::cout << "Type the account number: ";
 	std::cin >> accNo;
+	
+	// verify if the account number exists
+	try
+		{memData.at(accNo);}
+	catch(std::out_of_range &exception)
+	{
+		std::cout << "Error! This account number does not exist!\n";
+		return;
+	}
+	
+	
 	std::cout << "Type the amount to withdraw: ";
 	std::cin >> amount;
 	std::cin.ignore(); // clear '\n' in buffer
@@ -244,7 +269,14 @@ void deleteAccount(std::map<unsigned long, Account> &memData)
 	std::cin >> accNo;
 	std::cin.ignore(); // clear '\n' in buffer
 
-	memData.at(accNo); // throws exception if out of range
+	// verify if the account number exists
+	try
+		{memData.at(accNo);}
+	catch(std::out_of_range &exception)
+	{
+		std::cout << "Error! This account number does not exist!\n";
+		return;
+	}
 
 	std::cout << "\nDeleted account number " << accNo;
 	std::cout << ":\n" << memData[accNo] << "\n";
